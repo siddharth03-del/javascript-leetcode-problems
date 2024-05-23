@@ -14,7 +14,7 @@ function makeBST(head, tail){
     if(head == tail){
         return null;
     }
-    let mid = calcmid(head, tail);
+    let mid = calc(head, tail);
     let root = new TreeNode(mid.val);
     root.left = makeBST(head, mid);
     root.right = makeBST(mid.next, tail);
