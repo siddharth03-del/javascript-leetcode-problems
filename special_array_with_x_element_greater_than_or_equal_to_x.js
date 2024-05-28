@@ -5,8 +5,7 @@ function specialArray(nums) {
     let mid = Math.floor((first + last) / 2);
     let ans = -1;
     const lastindex = nums.length - 1;
-
-    while (last >= first) {
+    while (last >= first){
         mid = Math.floor((last + first) / 2);
         if (nums[lastindex - mid + 1] >= mid) {
             if (lastindex - mid + 1 > 0) {
