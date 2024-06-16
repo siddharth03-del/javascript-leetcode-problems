@@ -65,3 +65,28 @@ class Heap{
         }
     }
 }
+var minCostToHireWorkers = function(quality, wage , k){
+    let ratio = [];
+    let maxquality = new Heap((a,b) => a[0] > b[0]);
+    for(let i = 0; i < quality.length; i++){
+        ratio.push([wage[i]/quality[i], i]);
+    }
+    ratio.sort((a,b) => a[0] - b[0]);
+    let cost = Infinity;
+    let qualitysum = 0;
+    let maxratioindex = 0;
+    for(let i = 0; i < ratio.length ; i++){
+        let arr = ratio[i];
+        qualitysum += quality[arr[1]];
+        maxquality.insert([quality[arr[1]], i]);
+        if(maxquality.arr.length == k){
+            let calc = qualitysum*(ratio[i][0]);
+            if(calc < cost){
+                cost = calc;
+            }
+            let quality = maxquality.delete();
+            qualitysum -= quality[0];
+        }
+    }
+    return cost;
+}

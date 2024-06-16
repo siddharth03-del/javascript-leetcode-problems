@@ -62,4 +62,3 @@ Trie.prototype.startsWith = function(prefix){
     }
     return true;
 }
-var obj 

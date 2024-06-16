@@ -65,3 +65,28 @@ class Heap{
         }
     }
 }
+var findMaximizedCapital = function(k, w, profits, capital){
+    let maxprofit = new Heap((a,b) => a[1] > b[1]);
+    let mincapital = new Heap((a, b) => a[0] < b[0]);
+    for(let i = 0; i < capital.length ;i++){
+        let arr = [capital[i], profits[i], i];
+        mincapital.insert(arr);
+    }
+    while(k > 0){
+        if(!mincapital.isEmpty()){
+            while((mincapital.get())[0] <= w){
+                maxprofit.insert(mincapital.delete());
+                if(mincapital.isEmpty()){
+                    break;
+                }
+            }
+        }
+        if(maxprofit.isEmpty()){
+            break;
+        }
+        let project = maxprofit.delete();
+        w = w + project[1];
+        k--;
+    }
+    return w;
+}

@@ -1,7 +1,6 @@
 class Heap{
-    constructor(comp){
+    constructor(){
         this.arr = [];
-        this.compare = comp;
     }
     insert(val){
         this.arr.push(val);
@@ -10,7 +9,7 @@ class Heap{
     upheapify(index){
         while(index > 0){
             let parent = Math.floor((index-1)/2);
-            if(this.compare(this.arr[index] , this.arr[parent])){
+            if(this.arr[index][0] < this.arr[parent][0]){
                 let temp = this.arr[parent];
                 this.arr[parent] = this.arr[index];
                 this.arr[index] = temp;
@@ -33,10 +32,10 @@ class Heap{
             let lc = index*2 + 1;
             let rc = index*2 + 2;
             let maxel = index;
-            if(this.arr[lc] && this.compare(this.arr[lc] , this.arr[maxel])){
+            if(this.arr[lc] && this.arr[lc][0] < this.arr[maxel][0]){
                 maxel = lc;
             }
-            if(this.arr[rc] && this.compare(this.arr[rc] , this.arr[maxel])){
+            if(this.arr[rc] && this.arr[rc][0] < this.arr[maxel][0]){
                 maxel = rc;
             }
             if(maxel == index){
@@ -53,15 +52,30 @@ class Heap{
     display(){
         console.log(this.arr);
     }
-    get(){
-        return this.arr[0];
-    }
-    isEmpty(){
-        if(this.arr.length == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }
+var kthSmallestPrimeFraction = function(arr, k){
+    let hp = new Heap();
+    arr.sort((a,b) => a -b);
+    for(let i = 0; i < arr.length -1; i++){
+        let j = arr.length - 1;
+        let calc = arr[i]/arr[j];
+        let array = [calc, i, j];
+        hp.insert(array);
+    }
+    for(let i = 1; i < k; i++){
+        let ans = hp.delete();
+        let a = ans[1];
+        let b = ans[2];
+        if(a != b){
+            let calc = arr[a]/arr[b-1];
+            let array = [calc, a, b-1];
+            hp.insert(array);
+        }
+    }
+    let result = hp.delete();
+    let a = result[1];
+    let b = result[2];
+    let array = [arr[a], arr[b]];
+    return array;
+}
+console.log(kthSmallestPrimeFraction([1,7],1));
