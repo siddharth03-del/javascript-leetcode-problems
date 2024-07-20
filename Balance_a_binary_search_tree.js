@@ -22,7 +22,7 @@ var sortedarray = function(node){
     }
     return;
 }
-var balanceBST = function(){
+var balanceBST = function(node){
     array = new Array();
     sortedarray(node);
     let root = fun(0, array.length - 1);

@@ -95,7 +95,7 @@ MyLinkedList.prototype.deleteAtIndex = function(index){
         if(tobedeleted.next == null){
             delete tobedeleted;
             this.head = null;
-            return
+            return;
         }
         else{
             let new1 = tobedeleted.next;
